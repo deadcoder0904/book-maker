@@ -1,0 +1,371 @@
+/* @import 'tailwindcss/base'; */
+
+/* common base styles */
+
+/* @import './base.css'; */
+
+/* use this to style the web */
+
+/* style the web */
+
+@media screen {
+  body {
+    background: #f1f5f9;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 48rem;
+  }
+
+  .container {
+    overflow: hidden;
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+
+  .frontcover {
+    /* background: url('./cover.jpg'); */
+    background-image: url('./cover.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+
+  ol {
+    list-style-type: none;
+  }
+
+  a {
+    --tw-text-opacity: 1;
+    color: rgb(51 65 85 / var(--tw-text-opacity));
+  }
+}
+
+/* use this only for print */
+
+/* style the print */
+
+@media print {
+  @page {
+    size: 6.6in 8.5in;
+
+    margin: 70pt 60pt;
+  }
+
+  @page nofooter, :blank, :first {
+    @top-right {
+      content: none;
+    }
+
+    @top-left {
+      content: none;
+    }
+
+    @bottom-right {
+      content: none;
+    }
+
+    @bottom-left {
+      content: none;
+    }
+  }
+
+  @page cover {
+    background: url('./cover.jpg');
+
+    background-size: cover;
+  }
+
+  /* styles for the right hand spread
+  Bottom left we display the title of the book, bottom right the page using a CSS counter, top right the content of the current chapter */
+
+  @page :right {
+    @bottom-left {
+      content: 'piracy 101';
+
+      margin: 10pt 0 30pt 0;
+
+      border-top: 0.25pt solid #334155;
+
+      font-size: 9pt;
+
+      color: #334155;
+    }
+
+    @bottom-right {
+      content: counter(page);
+
+      margin: 10pt 0 30pt 0;
+
+      border-top: 0.25pt solid #334155;
+
+      font-size: 9pt;
+    }
+
+    @top-right {
+      content: string(doctitle);
+
+      margin: 30pt 0 10pt 0;
+
+      font-size: 9pt;
+
+      color: #334155;
+    }
+  }
+
+  /* styles for the left hand spread 
+  Bottom right book title, bottom left current page */
+
+  @page :left {
+    @bottom-right {
+      content: 'piracy 101';
+
+      margin: 10pt 0 30pt 0;
+
+      border-top: 0.25pt solid #334155;
+
+      font-size: 9pt;
+
+      color: #334155;
+    }
+
+    @bottom-left {
+      content: counter(page);
+
+      margin: 10pt 0 30pt 0;
+
+      border-top: 0.25pt solid #334155;
+
+      font-size: 9pt;
+    }
+  }
+
+  /* reset chapter and figure counters on the body */
+
+  body {
+    counter-reset: chapternum figurenum;
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  /* get the title of the current chapter - this will be the content of the h1 
+  reset figure counter as figures start from 1 in each chapter */
+
+  h1 {
+    string-set: doctitle content();
+    page-break-before: always;
+    counter-reset: figurenum;
+    counter-reset: footnote;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 900;
+    letter-spacing: 0.025em;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 800;
+    letter-spacing: 0.025em;
+  }
+
+  p {
+    color: #334155;
+    line-height: 1.5rem;
+    letter-spacing: 0.025em;
+  }
+
+  strong {
+    color: #000;
+    font-weight: 800;
+    letter-spacing: 0.025em;
+  }
+
+  ol {
+    margin: 0px;
+    list-style-type: none;
+    padding: 0px;
+  }
+
+  code {
+    background: #f1f5f9;
+    border-radius: 0.375rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    font-family: Alegreya, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+
+  h1 + p,
+  h2 + p,
+  h3 + p {
+    page-break-before: avoid;
+  }
+
+  table,
+  figure {
+    page-break-inside: avoid;
+  }
+
+  .frontcover {
+    page: cover;
+  }
+
+  .page-break::before {
+    page: nofooter;
+    content: ' ';
+    display: block;
+    page-break-before: always;
+    page-break-after: always;
+  }
+
+  figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  figure > img {
+    margin: 1rem;
+    width: 125%;
+  }
+
+  figure > figcaption {
+    color: #334155;
+    padding-top: 1rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-style: italic;
+  }
+
+  nav#toc {
+    page: nofooter;
+  }
+
+  nav#toc > h1 {
+    color: #0f172a;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  nav#toc > ol > li {
+    line-height: 2;
+  }
+
+  nav#toc > ol > li.chapter {
+    font-family: Alegreya, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* create page numbers using target-counter in the TOC */
+
+  nav#toc > ol > li > a::after {
+    content: leader('.') target-counter(attr(href), page);
+  }
+
+  nav#toc > ol > li.chapter > a {
+    color: #0f172a;
+    font-weight: 900;
+    letter-spacing: 0.025em;
+  }
+
+  nav#toc > ol > .chapter > a::after {
+    content: '';
+  }
+
+  nav#toc > ol > li > a {
+    text-decoration: none;
+  }
+
+  a {
+    color: #334155;
+  }
+
+  /* add page number to cross references */
+
+  a.xref:after {
+    content: ' (page ' target-counter(attr(href, url), page) ')';
+  }
+}
+
+.container {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.table {
+  display: table;
+}
+
+.contents {
+  display: contents;
+}
+
+.hidden {
+  display: none;
+}
+
+.italic {
+  font-style: italic;
+}

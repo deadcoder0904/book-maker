@@ -1,0 +1,201 @@
+/* style the print */
+
+@media print {
+  @page {
+    size: 6.6in 8.5in;
+    margin: 70pt 60pt;
+  }
+
+  @page nofooter, :blank, :first {
+    @top-right {
+      content: none;
+    }
+    @top-left {
+      content: none;
+    }
+    @bottom-right {
+      content: none;
+    }
+    @bottom-left {
+      content: none;
+    }
+  }
+
+  @page cover {
+    background: url('./cover.jpg');
+    background-size: cover;
+  }
+
+  /* styles for the right hand spread
+  Bottom left we display the title of the book, bottom right the page using a CSS counter, top right the content of the current chapter */
+  @page :right {
+    @bottom-left {
+      content: 'piracy 101';
+      margin: 10pt 0 30pt 0;
+      border-top: 0.25pt solid theme('colors.slate.700');
+      font-size: 9pt;
+      color: theme('colors.slate.700');
+    }
+    @bottom-right {
+      content: counter(page);
+      margin: 10pt 0 30pt 0;
+      border-top: 0.25pt solid theme('colors.slate.700');
+      font-size: 9pt;
+    }
+    @top-right {
+      content: string(doctitle);
+      margin: 30pt 0 10pt 0;
+      font-size: 9pt;
+      color: theme('colors.slate.700');
+    }
+  }
+
+  /* styles for the left hand spread 
+  Bottom right book title, bottom left current page */
+  @page :left {
+    @bottom-right {
+      content: 'piracy 101';
+      margin: 10pt 0 30pt 0;
+      border-top: 0.25pt solid theme('colors.slate.700');
+      font-size: 9pt;
+      color: theme('colors.slate.700');
+    }
+    @bottom-left {
+      content: counter(page);
+      margin: 10pt 0 30pt 0;
+      border-top: 0.25pt solid theme('colors.slate.700');
+      font-size: 9pt;
+    }
+  }
+
+  /* reset chapter and figure counters on the body */
+  body {
+    counter-reset: chapternum figurenum;
+    @apply font-sans text-sm;
+  }
+
+  /* get the title of the current chapter - this will be the content of the h1 
+  reset figure counter as figures start from 1 in each chapter */
+  h1 {
+    string-set: doctitle content();
+    page-break-before: always;
+    counter-reset: figurenum;
+    counter-reset: footnote;
+    @apply text-3xl font-black tracking-wide;
+  }
+
+  h2 {
+    @apply text-xl font-extrabold tracking-wide;
+  }
+
+  p {
+    color: theme('colors.slate.700');
+    @apply leading-6 tracking-wide;
+  }
+
+  strong {
+    color: theme('colors.black');
+    @apply font-extrabold tracking-wide;
+  }
+
+  ol {
+    @apply list-none m-0 p-0;
+  }
+
+  code {
+    background: theme('colors.slate.100');
+    @apply px-1 py-0.5 rounded-md font-sans font-medium;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    @apply font-alegreya;
+  }
+
+  h1 + p,
+  h2 + p,
+  h3 + p {
+    page-break-before: avoid;
+  }
+
+  table,
+  figure {
+    page-break-inside: avoid;
+  }
+
+  .frontcover {
+    page: cover;
+  }
+
+  .page-break::before {
+    page: nofooter;
+    content: ' ';
+    display: block;
+    page-break-before: always;
+    page-break-after: always;
+  }
+
+  figure {
+    @apply flex flex-col justify-center items-center py-6;
+
+    & > img {
+      @apply m-4 w-[125%];
+    }
+
+    & > figcaption {
+      color: theme('colors.slate.700');
+      @apply text-xs italic pt-4;
+    }
+  }
+
+  nav#toc {
+    page: nofooter;
+
+    & > h1 {
+      color: theme('colors.slate.900');
+      @apply text-2xl;
+    }
+
+    & > ol {
+      & > li {
+        @apply leading-loose;
+
+        &.chapter {
+          @apply font-alegreya text-lg tracking-wider;
+        }
+      }
+
+      /* create page numbers using target-counter in the TOC */
+      & > li > a::after {
+        content: leader('.') target-counter(attr(href), page);
+      }
+
+      & > li.chapter > a {
+        color: theme('colors.slate.900');
+        @apply font-black tracking-wide;
+      }
+
+      & > .chapter > a::after {
+        content: '';
+      }
+
+      & > li > a {
+        text-decoration: none;
+      }
+    }
+  }
+
+  a {
+    color: theme('colors.slate.700');
+  }
+
+  /* add page number to cross references */
+  a.xref:after {
+    content: ' (page ' target-counter(attr(href, url), page) ')';
+  }
+}

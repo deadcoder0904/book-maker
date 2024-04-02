@@ -1,0 +1,4 @@
+{
+  "watch": ["book.config.js", "src/index.mjs", "src/styles/*.css"],
+  "ext": "mjs, js, css, html"
+}

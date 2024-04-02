@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Nova+Flat');
+
+body {
+  @apply font-sans m-0 h-screen;
+}
+
+h1,
+h2 {
+  @apply tracking-tight;
+}
+
+h1 {
+  @apply text-4xl font-black;
+}
+
+h2 {
+  @apply text-2xl font-extrabold;
+}
+
+p {
+  @apply leading-6 tracking-wide;
+}
+
+#toc {
+  & > h2 {
+    @apply font-black;
+  }
+
+  & > ol > li {
+    @apply font-semibold text-lg;
+
+    & > .chapter {
+      @apply font-black text-2xl;
+    }
+  }
+}

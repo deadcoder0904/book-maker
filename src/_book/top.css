@@ -1,0 +1,9 @@
+@import 'themes/packages/@vivliostyle/theme-gutenberg/theme_common.css';
+
+@page :first {
+  background-image: url(cover.jpg);
+}
+
+h1 {
+  color: white;
+}

@@ -1,0 +1,13 @@
+/* @import 'tailwindcss/base'; */
+
+/* common base styles */
+/* @import './base.css'; */
+
+/* use this to style the web */
+@import './screen.css';
+
+/* use this only for print */
+@import './print.css';
+
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';

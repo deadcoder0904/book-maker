@@ -1,0 +1,29 @@
+/* style the web */
+
+@media screen {
+  body {
+    background: theme('colors.slate.100');
+    @apply max-w-3xl mx-auto;
+  }
+
+  .container {
+    @apply bg-white overflow-hidden px-32;
+  }
+
+  .frontcover {
+    /* background: url('./cover.jpg'); */
+    @apply bg-[url('./cover.jpg')] bg-cover bg-no-repeat bg-center;
+  }
+
+  img {
+    @apply w-full h-full;
+  }
+
+  ol {
+    @apply list-none;
+  }
+
+  a {
+    @apply text-slate-700;
+  }
+}
